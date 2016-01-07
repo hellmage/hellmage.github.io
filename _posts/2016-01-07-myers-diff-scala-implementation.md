@@ -39,7 +39,7 @@ original string: case L\neft(error) => (BadRequest(Json.obj("error" -> error)))
   target string: case Left(error) => Ok(Json.parse("[]"))
 ```
 
-Patch其实是一个List[String]，每个元素是一个单独的行为。行为有三种：
+Patch其实是一个```List[String]```，每个元素是一个单独的行为。行为有三种：
 
 - ```"="```表示没有变化，之后是一个数字，表示有连续多少个字符没有变化
 - ```"+"```表示需要插入，之后是一串需要插入的字符
