@@ -33,10 +33,10 @@ CodeProject上的那篇文章的d/k表格最形象的解释了应该如何在表
 看看产生的输出：
 
 ```
-patch: =6 -\n =14 +Ok =1 -BadRequest( =5 +pa -o +rse -bj =2 -error +[] =1 - -> error =2 -)
+          patch: =6 -\n =14 +Ok =1 -BadRequest( =5 +pa -o +rse -bj =2 -error +[] =1 - -> error =2 -)
 original string: case L\neft(error) => (BadRequest(Json.obj("error" -> error)))
-patched string: case Left(error) => Ok(Json.parse("[]"))
-target string: case Left(error) => Ok(Json.parse("[]"))
+ patched string: case Left(error) => Ok(Json.parse("[]"))
+  target string: case Left(error) => Ok(Json.parse("[]"))
 ```
 
 Patch其实是一个List[String]，每个元素是一个单独的行为。行为有三种：
