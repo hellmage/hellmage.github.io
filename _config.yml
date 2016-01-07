@@ -10,4 +10,7 @@ github_username: hellmage
 
 # Build settings
 markdown: kramdown
+kramdown:
+  input:  GFM
+  use_coderay: true
 highlighter: pygments
