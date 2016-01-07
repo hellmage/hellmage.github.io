@@ -14,6 +14,7 @@ Myers Diff算法是现在的各种diff算法的基础。只要你还用版本控
 我的代码：[Functional & Imperative Implementation of Myers Diff Algorithm](https://gist.github.com/hellmage/77ad87cb62821f1b6371)
 
 这个算法最核心的概念就是那张由两个字符串画成的表格，d和k这两个变量都是帮助你理解一步一步是怎么走的。设横轴（x轴）的字符串为A，纵轴（y轴）的为B，那么得到的路径就是从A变化为B的patch：
+
 - 对角线只会出现在相同字符交叉点左上的格子
 - 从表格的左上角开始，只能向右或者向下移动
 - 沿着x轴向右移动一步的意义是删掉A中的一个字符
@@ -23,6 +24,7 @@ Myers Diff算法是现在的各种diff算法的基础。只要你还用版本控
 所以为了用最快最简洁的方式从A变成B，算法的目标就是找到含有对角线尽量多的路线，或者说横向以及纵向移动步数之和最少的路线。d这个变量的意义就是路线之中横向和纵向的移动步数之和。因为延对角线移动不算步数，所以d也可以表示整个路径的步数。k这个变量其实只是对于原论文中的伪代码实现有意义。在用scala这种函数式的方法实现的时候，k就消失了。按照规则，每在这张表格上移动一步，d是肯定会加一的，所以只需要关心移动的方向，d在实现的时候也不会存在。
 
 CodeProject上的那篇文章的d/k表格最形象的解释了应该如何在表格上移动。用广度优先（BFS）实现最好，可以节省很多不必要的搜索。另外实现的时候还可以通过下面两点优化：
+
 - 在当前d所对应的所有点中，合并重复的
 - 记录在之前的d之中访问过的所有的点，抛弃当前d中已经访问过的点
 
@@ -30,13 +32,12 @@ CodeProject上的那篇文章的d/k表格最形象的解释了应该如何在表
 
 看看产生的输出：
 
-> patch: =6 -\n =14 +Ok =1 -BadRequest( =5 +pa -o +rse -bj =2 -error +[] =1 - -> error =2 -)
->
-> original string: case L\neft(error) => (BadRequest(Json.obj("error" -> error)))
->
-> patched string: case Left(error) => Ok(Json.parse("[]"))
->
-> target string: case Left(error) => Ok(Json.parse("[]"))
+{% highlight %}
+patch: =6 -\n =14 +Ok =1 -BadRequest( =5 +pa -o +rse -bj =2 -error +[] =1 - -> error =2 -)
+original string: case L\neft(error) => (BadRequest(Json.obj("error" -> error)))
+patched string: case Left(error) => Ok(Json.parse("[]"))
+target string: case Left(error) => Ok(Json.parse("[]"))
+{% endhighlight %}
 
 Patch其实是一个List[String]，每个元素是一个单独的行为。行为有三种：
 - "="表示没有变化，之后是一个数字，表示有连续多少个字符没有变化
