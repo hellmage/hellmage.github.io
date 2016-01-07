@@ -32,12 +32,12 @@ CodeProject上的那篇文章的d/k表格最形象的解释了应该如何在表
 
 看看产生的输出：
 
-{% highlight %}
+```
 patch: =6 -\n =14 +Ok =1 -BadRequest( =5 +pa -o +rse -bj =2 -error +[] =1 - -> error =2 -)
 original string: case L\neft(error) => (BadRequest(Json.obj("error" -> error)))
 patched string: case Left(error) => Ok(Json.parse("[]"))
 target string: case Left(error) => Ok(Json.parse("[]"))
-{% endhighlight %}
+```
 
 Patch其实是一个List[String]，每个元素是一个单独的行为。行为有三种：
 - "="表示没有变化，之后是一个数字，表示有连续多少个字符没有变化
@@ -46,7 +46,7 @@ Patch其实是一个List[String]，每个元素是一个单独的行为。行为
 
 Patch list的顺序是重要的，因为它们的应用是顺序的。仔细看一下上面例子之中的patch就会注意到，把他们用空格连接起来成为一个字符串表示其实是不行的，因为要插入或者删除的字符串之中都有可能有空格。其实用任何分隔符来连接它们都是不好的，最好是表示成一个json格式的字符串，像这样（注意倒数第三个元素）：
 
-{% highlight json %}
+```json
 [
   "=6",
   "-\n",
@@ -67,4 +67,4 @@ Patch list的顺序是重要的，因为它们的应用是顺序的。仔细看�
   "=2",
   "-)"
 ]
-{% endhighlight %}
+```
