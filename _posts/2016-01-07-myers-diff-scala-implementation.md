@@ -29,6 +29,7 @@ CodeProject上的那篇文章的d/k表格最形象的解释了应该如何在表
 我本来想用FP的方式实现的，结果发现……好难……能够找到路径，但是要完全记录下来真是麻烦到爆，干脆就用传统的方式实现吧。验证也不难，就是把产生的patch应用到A上，看看能不能产生B。
 
 看看产生的输出：
+
 > patch: =6 -\n =14 +Ok =1 -BadRequest( =5 +pa -o +rse -bj =2 -error +[] =1 - -> error =2 -)
 >
 > original string: case L\neft(error) => (BadRequest(Json.obj("error" -> error)))
