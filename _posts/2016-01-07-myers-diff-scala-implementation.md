@@ -29,13 +29,13 @@ CodeProject上的那篇文章的d/k表格最形象的解释了应该如何在表
 我本来想用FP的方式实现的，结果发现……好难……能够找到路径，但是要完全记录下来真是麻烦到爆，干脆就用传统的方式实现吧。验证也不难，就是把产生的patch应用到A上，看看能不能产生B。
 
 看看产生的输出：
->patch: =6 -\n =14 +Ok =1 -BadRequest( =5 +pa -o +rse -bj =2 -error +[] =1 - -> error =2 -)
+> patch: =6 -\n =14 +Ok =1 -BadRequest( =5 +pa -o +rse -bj =2 -error +[] =1 - -> error =2 -)
 >
->original string: case L\neft(error) => (BadRequest(Json.obj("error" -> error)))
+> original string: case L\neft(error) => (BadRequest(Json.obj("error" -> error)))
 >
->patched string: case Left(error) => Ok(Json.parse("[]"))
+> patched string: case Left(error) => Ok(Json.parse("[]"))
 >
->target string: case Left(error) => Ok(Json.parse("[]"))
+> target string: case Left(error) => Ok(Json.parse("[]"))
 
 Patch其实是一个List[String]，每个元素是一个单独的行为。行为有三种：
 - "="表示没有变化，之后是一个数字，表示有连续多少个字符没有变化
@@ -44,7 +44,7 @@ Patch其实是一个List[String]，每个元素是一个单独的行为。行为
 
 Patch list的顺序是重要的，因为它们的应用是顺序的。仔细看一下上面例子之中的patch就会注意到，把他们用空格连接起来成为一个字符串表示其实是不行的，因为要插入或者删除的字符串之中都有可能有空格。其实用任何分隔符来连接它们都是不好的，最好是表示成一个json格式的字符串，像这样（注意倒数第三个元素）：
 
-```json
+{% highlight json %}
 [
   "=6",
   "-\n",
@@ -65,4 +65,4 @@ Patch list的顺序是重要的，因为它们的应用是顺序的。仔细看�
   "=2",
   "-)"
 ]
-```
+{% endhighlight %}
